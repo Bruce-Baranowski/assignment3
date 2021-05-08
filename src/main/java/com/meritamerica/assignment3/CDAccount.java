@@ -1,20 +1,28 @@
 package com.meritamerica.assignment3;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CDAccount extends BankAccount {
 	
-	private Date startDate;
+	
 	private int term;
 	
 	public CDAccount(CDOffering offering, double openingBalance) {
 		super(openingBalance, offering.getInterestRate());
 		term = offering.getTerm();
-		startDate = new Date();
+
+	}
+
+	public CDAccount(long accountNumber, double balance, double interestRate, Date accountOpenedOn, int term) {
+		super(accountNumber, balance, interestRate, accountOpenedOn);
+		this.term = term;
 	}
 
 	public Date getStartDate() {
-		return startDate;
+		return this.getAccountOpenedOn();
 	}
 
 	public int getTerm() {
@@ -30,5 +38,17 @@ public class CDAccount extends BankAccount {
 	public boolean withdraw(double amount) {
 		return false;
 	}
-	
+	public static CDAccount readFromString(String bankAccount) throws ParseException {
+		String[] input = bankAccount.split(",");
+		long accountNumber = Long.parseLong(input[0]);
+		double balance = Double.parseDouble(input[1]);
+		double interestRate = Double.parseDouble(input[2]);
+		java.util.Date accountOpenedOn = new SimpleDateFormat("MM/dd/YYYY").parse(input[3]);
+		int term = Integer.parseInt(input[4]);
+		return new CDAccount(accountNumber, balance, interestRate, accountOpenedOn, term);
+		
+	}
+	public String writeToString() {
+		DateFormat df = new SimpleDateFormat("MM/dd/YYYY");
+		return getAccountNumber() + "," + getBalance() + "," + getInterestRate() + "," + df.format(getAccountOpenedOn() + "," + term);}
 }

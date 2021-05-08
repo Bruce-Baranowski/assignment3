@@ -3,7 +3,7 @@ package com.meritamerica.assignment3;
 import java.util.Arrays;
 
 
-public class AccountHolder {
+public class AccountHolder implements Comparable<AccountHolder>   {
 	private String firstName;
 	private String middleName;
 	private String lastName;
@@ -189,10 +189,30 @@ public class AccountHolder {
 		tmpTotal += this.getCDBalance();
 		return tmpTotal;
 	}
-
+	public static AccountHolder readFromString(String accountHolderData) throws Exception {
+		String[] input = accountHolderData.split(",");	
+		String firstName = input[0];
+		String middleName = input[1];
+		String lastName = input[2];
+		String ssn = input[3];
+		return new AccountHolder(firstName, middleName, lastName, ssn);
+		
+	}
+  public String writeToString() {
+	return firstName + ","  + lastName + "," + middleName + "," + ssn;
+	  
+  }
+	
 	@Override
 	public String toString() {
 		return "\nName: " + this.getFirstName() + " " + this.getMiddleName() + " " + this.getLastName() + "\nSSN: "
 				+ this.getSSN() + this.getCheckingAccounts().toString() + this.getSavingsAccounts().toString();
+	}
+
+	@Override
+	public int compareTo(AccountHolder o) {
+		int result = (int) (this.getCombinedBalance()-o.getCombinedBalance());
+		
+		return result;
 	}
 }

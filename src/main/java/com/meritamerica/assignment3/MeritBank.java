@@ -79,6 +79,14 @@ public class MeritBank {
 		return nextAccountNumber++;
 	}
 	
+	public static void setNextAccountNumber(long nextAccountNumber) {
+		MeritBank.nextAccountNumber = nextAccountNumber;
+	}
+	public static AccountHolder[] sortAccountHolders() {
+		java.util.Arrays.sort(accounts);
+		return accounts;
+		
+	}
 	public static double totalBalances() {
 		double total = 0;
 		for (AccountHolder x: accounts) {
