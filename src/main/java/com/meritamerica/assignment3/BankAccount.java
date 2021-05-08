@@ -82,7 +82,7 @@ public class BankAccount {
 				+ "\nChecking Account Balance in 3 years: " + String.format("%.2f", this.futureValue(3));
 	}
 
-	public java.util.Date getAccountOpenedOn() {
+	public java.util.Date getOpenedOn() {
 		return accountOpenedOn;
 	}
 	public static BankAccount readFromString(String bankAccount) throws ParseException {
@@ -90,9 +90,8 @@ public class BankAccount {
 		long accountNumber = Long.parseLong(input[0]);
 		double balance = Double.parseDouble(input[1]);
 		double interestRate = Double.parseDouble(input[2]);
-		java.util.Date accountOpenedOn = new SimpleDateFormat("MM/dd/YYYY").parse(input[3]);
+		java.util.Date accountOpenedOn = new SimpleDateFormat("dd/MM/yyyy").parse(input[3]);
 		return new BankAccount(accountNumber, balance, interestRate, accountOpenedOn);
-		
 	}
 	public String writeToString() {
 		DateFormat df = new SimpleDateFormat("MM/dd/YYYY");

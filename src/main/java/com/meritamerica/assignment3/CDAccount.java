@@ -22,7 +22,7 @@ public class CDAccount extends BankAccount {
 	}
 
 	public Date getStartDate() {
-		return this.getAccountOpenedOn();
+		return this.getOpenedOn();
 	}
 
 	public int getTerm() {
@@ -43,12 +43,17 @@ public class CDAccount extends BankAccount {
 		long accountNumber = Long.parseLong(input[0]);
 		double balance = Double.parseDouble(input[1]);
 		double interestRate = Double.parseDouble(input[2]);
-		java.util.Date accountOpenedOn = new SimpleDateFormat("MM/dd/YYYY").parse(input[3]);
+		java.util.Date accountOpenedOn = new SimpleDateFormat("dd/MM/yyyy").parse(input[3]);
 		int term = Integer.parseInt(input[4]);
 		return new CDAccount(accountNumber, balance, interestRate, accountOpenedOn, term);
 		
 	}
+
+	double futureValue() {
+		return getBalance() * Math.pow(1 + getInterestRate(), term);
+	}
+	
 	public String writeToString() {
 		DateFormat df = new SimpleDateFormat("MM/dd/YYYY");
-		return getAccountNumber() + "," + getBalance() + "," + getInterestRate() + "," + df.format(getAccountOpenedOn() + "," + term);}
+		return getAccountNumber() + "," + getBalance() + "," + getInterestRate() + "," + df.format(getOpenedOn() + "," + term);}
 }

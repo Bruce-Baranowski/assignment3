@@ -15,6 +15,7 @@ public class CDOffering {
 	public double getInterestRate() {
 		return interestRate;
 	}
+	
 	public static CDOffering readFromString(String cdOfferingDataString) {
 	String[] input = cdOfferingDataString.split(",");
 	int term = Integer.parseInt(input[0]);
